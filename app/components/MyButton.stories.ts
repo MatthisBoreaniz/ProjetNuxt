@@ -8,7 +8,7 @@ const meta = {
   component: MyButton,
   render: (args) => ({
     components: { MyButton },
-    setup() {
+    setup () {
       return { args }
     },
     template: `
@@ -18,16 +18,19 @@ const meta = {
       </template>
       <template v-else>Click me</template>
     </MyButton>
-  `,
+  `
   }),
   tags: ['autodocs'],
   argTypes: {
-    size: { control: 'select', options: ['giant', 'large', 'medium', 'small', 'tiny'] },
+    size: {
+      control: 'select',
+      options: ['giant', 'large', 'medium', 'small', 'tiny']
+    },
     variant: { control: 'radio', options: ['default', 'outline', 'ghost'] },
     href: { control: 'text' },
     icon: { control: 'boolean' },
-    disabled: { control: 'boolean' },
-  },
+    disabled: { control: 'boolean' }
+  }
 } satisfies Meta<typeof MyButton>
 
 export default meta
@@ -37,55 +40,55 @@ export const Default: Story = {}
 
 export const Outline: Story = {
   args: {
-    variant: 'outline',
-  },
+    variant: 'outline'
+  }
 }
 
 export const Ghost: Story = {
   args: {
-    variant: 'ghost',
-  },
+    variant: 'ghost'
+  }
 }
 
 export const Small: Story = {
   args: {
-    size: 'small',
-  },
+    size: 'small'
+  }
 }
 
 export const SmallOutline: Story = {
   args: {
     size: 'small',
-    variant: 'outline',
-  },
+    variant: 'outline'
+  }
 }
 
 export const GiantGhost: Story = {
   args: {
     size: 'giant',
-    variant: 'ghost',
-  },
+    variant: 'ghost'
+  }
 }
 
 export const WithIcon: Story = {
   args: {
-    icon: true,
-  },
+    icon: true
+  }
 }
 
 export const Disabled: Story = {
   args: {
-    disabled: true,
-  },
+    disabled: true
+  }
 }
 
-export const large : Story = {
+export const large: Story = {
   args: {
-    size: 'large',
-  },
+    size: 'large'
+  }
 }
-export const tiny : Story = {
+export const tiny: Story = {
   args: {
-    size: 'tiny',
-  },
+    size: 'tiny'
+  }
 }

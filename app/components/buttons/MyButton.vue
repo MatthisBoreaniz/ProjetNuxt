@@ -9,7 +9,7 @@ defineProps<{
 
 const emit = defineEmits(['ClickAndHover'])
 
-function handleClickAndHover() {
+function handleClickAndHover () {
   emit('ClickAndHover')
 }
 </script>

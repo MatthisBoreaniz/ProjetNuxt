@@ -2,7 +2,7 @@
 import { onMounted, onUnmounted } from 'vue'
 const div = ref<null | HTMLDivElement>(null)
 const percentage = ref(0)
-function handleScroll() {
+function handleScroll () {
   if (!div.value) return
   const divTop = div.value.offsetTop
   const divBottom = divTop + div.value.offsetHeight
@@ -27,8 +27,10 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div ref="div" class="backgroundScroll" >
-    <div class="backgroundScroll__content"><p>{{ percentage }} %</p></div>
+  <div ref="div" class="backgroundScroll">
+    <div class="backgroundScroll__content">
+      <p>{{ percentage }} %</p>
+    </div>
   </div>
 </template>
 
@@ -36,7 +38,7 @@ onUnmounted(() => {
 .backgroundScroll {
   background: var(--color-text);
   min-height: 200vh;
-  color: var(--color-background)    ;
+  color: var(--color-background);
   &__content {
     position: sticky;
     top: 0;
