@@ -1,5 +1,7 @@
 <template>
     <div>
-        <h1>Bienvenue sur la page d'accueil</h1>
+        <MyTitle uppercase>Bienvenue sur la page d'accueil</MyTitle>
+        <MyButton href="/blog">Aller au blog</MyButton>
+        <MyLoginForm />
     </div>
 </template>
