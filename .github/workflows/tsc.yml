@@ -1,0 +1,16 @@
+name: Typecheck
+
+on:
+  pull_request:
+    branches:
+      - master
+      - dev
+
+jobs:
+  Typecheck:
+    runs-on: ubuntu-latest
+    name: Check lint
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm install
+      - run: npx nuxi typecheck
