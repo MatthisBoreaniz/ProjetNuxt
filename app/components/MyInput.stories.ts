@@ -8,18 +8,18 @@ const meta = {
   component: MyInput,
   render: (args) => ({
     components: { MyInput },
-    setup() {
+    setup () {
       return { args }
     },
     template: `
     <MyInput v-bind="args" />
-  `,
+  `
   }),
   tags: ['autodocs'],
   argTypes: {
     type: { control: 'select', options: ['text', 'password', 'email'] },
-    label: { control: 'text' },
-  },
+    label: { control: 'text' }
+  }
 } satisfies Meta<typeof MyInput>
 
 export default meta
@@ -28,13 +28,13 @@ type Story = StoryObj<typeof meta>
 export const Password: Story = {
   args: {
     type: 'text',
-    label: 'Password',
-  },
+    label: 'Password'
+  }
 }
 
 export const InputTextWithLabel: Story = {
   args: {
     label: 'text',
-    type: 'text',
-  },
+    type: 'text'
+  }
 }

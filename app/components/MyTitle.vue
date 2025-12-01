@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed } from 'vue'
 
 const props = defineProps<{
   level?: 1 | 2 | 3 | 4 | 5 | 6;
-  variant?: "default" | "muted" | "accent";
-  size?: "giant" | "large" | "medium" | "small" | "tiny";
+  variant?: 'default' | 'muted' | 'accent';
+  size?: 'giant' | 'large' | 'medium' | 'small' | 'tiny';
   uppercase?: boolean;
   center?: boolean;
-}>();
+}>()
 
-const tag = computed(() => `h${props.level ?? 1}`);
+const tag = computed(() => `h${props.level ?? 1}`)
 </script>
 
 <template>

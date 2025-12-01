@@ -7,12 +7,12 @@ const meta = {
   component: MyTitle,
   render: (args) => ({
     components: { MyTitle },
-    setup() {
+    setup () {
       return { args }
     },
     template: `
     <MyTitle v-bind="args">{{ args.default || 'Example title' }}</MyTitle>
-  `,
+  `
   }),
   tags: ['autodocs'],
   argTypes: {
@@ -21,8 +21,8 @@ const meta = {
     variant: { control: 'radio', options: ['default', 'muted', 'accent'] },
     uppercase: { control: 'boolean' },
     center: { control: 'boolean' },
-    default: { control: 'text' },
-  },
+    default: { control: 'text' }
+  }
 } satisfies Meta<typeof MyTitle>
 
 export default meta
@@ -35,55 +35,55 @@ export const Default: Story = {
     variant: 'default',
     uppercase: false,
     center: false,
-    default: 'Hello World',
-  },
+    default: 'Hello World'
+  }
 }
 
 export const Muted: Story = {
   args: {
     variant: 'muted',
-    default: 'Muted title',
-  },
+    default: 'Muted title'
+  }
 }
 
 export const Accent: Story = {
   args: {
     variant: 'accent',
-    default: 'Accent title',
-  },
+    default: 'Accent title'
+  }
 }
 
 export const Giant: Story = {
   args: {
     size: 'giant',
-    default: 'Giant title',
-  },
+    default: 'Giant title'
+  }
 }
 
 export const Small: Story = {
   args: {
     size: 'small',
-    default: 'Small title',
-  },
+    default: 'Small title'
+  }
 }
 
 export const Uppercase: Story = {
   args: {
     uppercase: true,
-    default: 'Uppercase title',
-  },
+    default: 'Uppercase title'
+  }
 }
 
 export const Centered: Story = {
   args: {
     center: true,
-    default: 'Centered title',
-  },
+    default: 'Centered title'
+  }
 }
 
 export const Level3: Story = {
   args: {
     level: 3,
-    default: 'Level 3 title',
-  },
+    default: 'Level 3 title'
+  }
 }

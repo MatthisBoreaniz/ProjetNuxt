@@ -3,6 +3,7 @@ const email = ref('')
 const password = ref('')
 
 const postLogin = () => {
+  // eslint-disable-next-line no-console
   console.log(email.value, password.value)
 }
 
@@ -12,14 +13,14 @@ watch(
     if (value === 'matthis@gmail.com') {
       alert('Email correct')
     }
-  },
+  }
 )
 </script>
 
 <template>
   <form class="form" @submit.prevent="postLogin">
     <MyInput v-model="password" label="Password" type="password" />
-    <MyInput v-model="email" label="Email" type="email"  />
+    <MyInput v-model="email" label="Email" type="email" />
     <MyButton>Se connecter</MyButton>
   </form>
 </template>

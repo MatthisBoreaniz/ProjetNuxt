@@ -1,8 +1,10 @@
 <script setup lang="ts">
-const model = defineModel()
+const model = defineModel<string>(
+
+)
 defineProps<{
-    label?: string
-    type: 'text' | 'password' | 'email'
+  label?: string
+  type: 'text' | 'password' | 'email'
 }>()
 
 
@@ -11,7 +13,7 @@ defineProps<{
 <template>
   <div class="inputGroup">
     <label v-if="label">{{label}}</label>
-    <input :type="type" v-model="model" />
+    <input v-model="model" :type="type" >
   </div>
 </template>
 
