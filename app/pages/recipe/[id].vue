@@ -6,7 +6,7 @@ const { id } = route.params
 const { data: recipe, error } = useAsyncData(
   `recipe-${route.params.recipe_id}`,
   async () => {
-    const { data } = await $fetch<{ data: FullRecipe }>(
+    const { data } = await $fetch<ApiResponse<FullRecipe>>(
       `${config.public.apiUrl}/recipes/${id}`
     )
     return data
