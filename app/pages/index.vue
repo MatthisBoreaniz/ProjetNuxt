@@ -1,4 +1,12 @@
 <script setup lang="ts">
+useHead({
+  title: 'Accueil - Mon Application de Recettes',
+  meta: [
+    {
+      name: 'description',
+      content: 'bienvenue sur la page d\'accueil du site de recette' }
+  ]
+})
 const config = useRuntimeConfig()
 const [{ data: recipes, error: recipeError }, { data: cuisines, error: cuisineError }] =
   await Promise.all([
