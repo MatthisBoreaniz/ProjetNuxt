@@ -9,7 +9,7 @@ on:
 jobs:
   Typecheck:
     runs-on: ubuntu-latest
-    name: Check lint
+    name: Check Typescript errors
     steps:
       - uses: actions/checkout@v3
       - run: npm install
