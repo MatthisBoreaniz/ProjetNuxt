@@ -1,4 +1,5 @@
 <script setup lang="ts">
+
 const config = useRuntimeConfig()
 const route = useRoute()
 const { id } = route.params
@@ -13,6 +14,15 @@ const { data: recipe, error } = useAsyncData(
   }
 )
 if (error && error.value) throw new Error('Failed to fetch recipe')
+
+useHead({
+  title: `${recipe.value ? recipe.value.title : 'Recette'} - Mon Application de Recettes`,
+  meta: [
+    {
+      name: 'description',
+      content: recipe.value?.description }
+  ]
+})
 </script>
 
 <template>
