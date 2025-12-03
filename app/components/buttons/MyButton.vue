@@ -1,7 +1,7 @@
 <script setup lang="ts">
 defineProps<{
   href?: string
-  variant?: 'default' | 'outline' | 'ghost'
+  variant?: 'default' | 'outline' | 'ghost' | 'quit'
   size?: 'giant' | 'large' | 'medium' | 'small' | 'tiny'
   icon?: boolean
   disabled?: boolean
@@ -28,7 +28,8 @@ function handleClickAndHover () {
       '-small': size === 'small',
       '-tiny': size === 'tiny',
       '-disabled': disabled,
-      '-icon': icon
+      '-icon': icon,
+      '-quit': variant === 'quit'
     }"
     @click="handleClickAndHover"
     @mouseenter="handleClickAndHover"
@@ -49,7 +50,8 @@ function handleClickAndHover () {
       '-small': size === 'small',
       '-tiny': size === 'tiny',
       '-disabled': disabled,
-      '-icon': icon
+      '-icon': icon,
+      '-quit': variant === 'quit'
     }"
     @click="handleClickAndHover"
     @mouseenter="handleClickAndHover"
