@@ -26,6 +26,7 @@ const logout = () => {
 <template>
   <div class="p-dashboard">
     <h1>Dashboard</h1>
+    <CreateRecipeForm/>
     <button @click="logout">
       Se déconnecter
     </button>
@@ -35,7 +36,7 @@ const logout = () => {
 <style scoped lang="scss">
 div {
   background-color: white;
-  min-height: 100vh; // s'assure que le fond couvre toute la hauteur de la page
+  min-height: 100vh; 
   display: flex;
   align-items: center;
   flex-direction: column;
