@@ -1,20 +1,31 @@
+<!-- eslint-disable no-console -->
 <script setup lang="ts">
 const email = ref('')
 const password = ref('')
-
-const postLogin = () => {
-  // eslint-disable-next-line no-console
-  console.log(email.value, password.value)
+const config = useRuntimeConfig()
+const postLogin = async () => {
+  try {
+    const response = await fetch(`${config.public.apiUrl}/users/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: email.value,
+        password: password.value
+      })
+    })
+    const json = await response.json()
+    const token = json.data.token
+    const cookie = useCookie('recipe-token')
+    cookie.value = token
+    console.log(token)
+    if (token) {
+      navigateTo('/dashboard')
+    }
+  } catch (error) {
+    console.error('Login failed:', error)
+  }
 }
 
-watch(
-  () => email.value,
-  (value) => {
-    if (value === 'matthis@gmail.com') {
-      alert('Email correct')
-    }
-  }
-)
 </script>
 
 <template>
