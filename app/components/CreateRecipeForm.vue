@@ -40,20 +40,20 @@ const [
   { data: allergies, error: allergiesError },
   { data: dietaries, error: dietariesError }
 ] = await Promise.all([
-  useAsyncData<Cuisine[]>('cuisines', async () => {
-    const { data } = await $fetch<{ data: Cuisine[] }>(`${config.public.apiUrl}/cuisines`)
+  useAsyncData('cuisines', async () => {
+    const { data } = await $fetch<ApiResponse<Cuisine[]>>(`${config.public.apiUrl}/cuisines`)
     return data
   }),
-  useAsyncData<Goal[]>('goals', async () => {
-    const { data } = await $fetch<{ data: Goal[] }>(`${config.public.apiUrl}/goals`)
+  useAsyncData('goals', async () => {
+    const { data } = await $fetch<ApiResponse<Goal[]>>(`${config.public.apiUrl}/goals`)
     return data
   }),
-  useAsyncData<Allergy[]>('allergies', async () => {
-    const { data } = await $fetch<{ data: Allergy[] }>(`${config.public.apiUrl}/allergies`)
+  useAsyncData('allergies', async () => {
+    const { data } = await $fetch<ApiResponse<Allergy[]>>(`${config.public.apiUrl}/allergies`)
     return data
   }),
-  useAsyncData<Diet[]>('dietaries', async () => {
-    const { data } = await $fetch<{ data: Diet[] }>(`${config.public.apiUrl}/dietaries`)
+  useAsyncData('dietaries', async () => {
+    const { data } = await $fetch<ApiResponse<Diet[]>>(`${config.public.apiUrl}/dietaries`)
     return data
   })
 ])
