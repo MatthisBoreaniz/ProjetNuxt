@@ -34,11 +34,42 @@ async function postCreateRecipe () {
 }
 
 
-const { data: cuisines } = await useAsyncData<Cuisine[]>('cuisines', async () => {
-  const response = await $fetch<{ data: Cuisine[] }>(`${config.public.apiUrl}/cuisines`)
-  return response.data
-})
+const [
+  { data: cuisines, error: cuisinesError },
+  { data: goals, error: goalsError },
+  { data: allergies, error: allergiesError },
+  { data: dietaries, error: dietariesError }
+] = await Promise.all([
+  useAsyncData<Cuisine[]>('cuisines', async () => {
+    const { data } = await $fetch<{ data: Cuisine[] }>(`${config.public.apiUrl}/cuisines`)
+    return data
+  }),
+  useAsyncData<Goal[]>('goals', async () => {
+    const { data } = await $fetch<{ data: Goal[] }>(`${config.public.apiUrl}/goals`)
+    return data
+  }),
+  useAsyncData<Allergy[]>('allergies', async () => {
+    const { data } = await $fetch<{ data: Allergy[] }>(`${config.public.apiUrl}/allergies`)
+    return data
+  }),
+  useAsyncData<Diet[]>('dietaries', async () => {
+    const { data } = await $fetch<{ data: Diet[] }>(`${config.public.apiUrl}/dietaries`)
+    return data
+  })
+])
 
+if (cuisinesError.value) {
+  throw new Error('Failed to fetch cuisines')
+}
+if (goalsError.value) {
+  throw new Error('Failed to fetch goals')
+}
+if (allergiesError.value) {
+  throw new Error('Failed to fetch allergies')
+}
+if (dietariesError.value) {
+  throw new Error('Failed to fetch dietaries')
+}
 </script>
 
 <template>
@@ -58,19 +89,28 @@ const { data: cuisines } = await useAsyncData<Cuisine[]>('cuisines', async () =>
 
       <label for="goal">Goal</label>
       <select id="goal" v-model="Payload.goal_id" multiple>
-        <option value="1">Perte de Poids</option>
-        <option value="2">Riche en protéines</option>
-        <option value="3">Riche en nutriments</option>
-        <option value="4">Faible en calories</option>
-        <option value="5">Rapide et facile</option>
-        <option value="6">Adapté aux familles</option>
-        <option value="7">Économique</option>
-        <option value="8">Occasions spéciales</option>
+        <option disabled value="">Choisir un objectif</option>
+        <option v-for="g in goals" :key="g.goal_id" :value="g.goal_id">
+          {{ g.name }}
+        </option>
+      </select>
+
+      <label for="dietary">Dietary Information</label>
+      <select id="dietary" v-model="Payload.DiataryInformation_id" multiple>
+        <option disabled value="">Choisir une information diététique</option>
+        <option v-for="d in dietaries" :key="d.diet_id" :value="d.diet_id">
+          {{ d.name }}
+        </option>
+      </select>
+      <label for="allergy">Allergy Information</label>
+      <select id="allergy" v-model="Payload.AllergyInformation_id" multiple>
+        <option disabled value="">Choisir une information allergène</option>
+        <option v-for="a in allergies" :key="a.allergy_id" :value="a.allergy_id">
+          {{ a.name }}
+        </option>
       </select>
 
       <MyInput v-model="Payload.image_url" label="Image URL" type="text" />
-      <MyInput v-model="Payload.DiataryInformation_id" label="Diatary Information ID" type="text" />
-      <MyInput v-model="Payload.AllergyInformation_id" label="Allergy Information ID" type="text" />
     </div>
     <MyButton>Creer la recette</MyButton>
   </form>

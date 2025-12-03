@@ -4,9 +4,9 @@ type Recipe = {
   description: string;
   image_url: string;
   cuisine_name: Cuisine['name'];
-  goal_name: string;
-  diet_name: string;
-  allergy_name: string[];
+  goal_name: Goal['name'];
+  diet_name: Diet['name'];
+  allergy_name: Allergy['name'];
 }
 
 type RecipeIngredients = {
