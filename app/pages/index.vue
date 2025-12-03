@@ -60,7 +60,7 @@ const filteredRecipes = computed<Recipe[]>(() => {
     result = result.filter(
       (recipe) =>
         recipe.title.toLowerCase().includes(searchTerm) ||
-        recipe.cuisine_name.toLowerCase().includes(searchTerm)
+        (recipe.cuisine_name && recipe.cuisine_name.toLowerCase().includes(searchTerm))
     )
   }
 
