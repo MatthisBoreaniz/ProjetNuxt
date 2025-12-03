@@ -1,4 +1,15 @@
 <script setup lang="ts">
+const config = useRuntimeConfig()
+
+await useAsyncData('my-recipes', () => {
+  const cookie = useCookie('recipe-token')
+  return fetch(`${config.public.apiUrl}/recipes/my-recipes`, {
+    headers: {
+      Authorization: `Bearer ${cookie.value}`
+    }
+  })
+})
+
 definePageMeta({
   middleware: ['auth']
 })
@@ -8,6 +19,8 @@ const logout = () => {
   cookie.value = null
   navigateTo('/login')
 }
+
+
 </script>
 
 <template>
