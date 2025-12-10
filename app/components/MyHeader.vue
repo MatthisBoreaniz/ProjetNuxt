@@ -12,26 +12,15 @@ const logout = () => {
 }
 
 const config = useRuntimeConfig()
-const [{ data: recipes, error: recipeError }, { data: cuisines, error: cuisineError }] =
-  await Promise.all([
-    useAsyncData('recipes', async () => {
-      const { data } = await $fetch<ApiResponse<Recipe[]>>(
-        `${config.public.apiUrl}/recipes`
-      )
-      return data
-    }),
-    useAsyncData('cuisines', async () => {
-      const { data } = await $fetch<ApiResponse<Cuisine[]>>(
-        `${config.public.apiUrl}/cuisines`
-      )
-      return data
-    })
-  ])
+const { data: recipes, error: recipeError } = await useAsyncData('recipes', async () => {
+  const { data } = await $fetch<ApiResponse<Recipe[]>>(
+    `${config.public.apiUrl}/recipes`
+  )
+  return data
+})
+
 if (recipeError && recipeError.value) {
   throw new Error('Failed to fetch recipes')
-}
-if (cuisineError && cuisineError.value) {
-  throw new Error('Failed to fetch cuisines')
 }
 
 const search = ref('')
