@@ -1,11 +1,7 @@
 <script setup lang="ts">
-import type {
-  SanitySiteSettings
-} from '@/types/cms/site-settings'
+import type { SanitySiteSettings } from '@/types/cms/site-settings'
 
 const query = groq`*[_type == "siteSettings"][0]`
-
-
 const { data: siteSettings } = await useLazySanityQuery<SanitySiteSettings>(query)
 
 const { urlFor } = useSanityImage()
@@ -20,40 +16,6 @@ const logout = () => {
   cookie.value = null
   navigateTo('/login')
 }
-
-const config = useRuntimeConfig()
-const { data: recipes, error: recipeError } = await useAsyncData(
-  'recipes',
-  async () => {
-    const { data } = await $fetch<ApiResponse<Recipe[]>>(
-      `${config.public.apiUrl}/recipes`
-    )
-    return data
-  }
-)
-
-if (recipeError && recipeError.value) {
-  throw new Error('Failed to fetch recipes')
-}
-
-const search = ref('')
-
-const Searched = computed(() => {
-  if (!recipes.value) return []
-
-  if (!search.value || search.value.trim() === '') {
-    return []
-  }
-
-  const searchTerm = search.value.toLowerCase()
-
-  return recipes.value.filter(
-    (recipe) =>
-      recipe.title.toLowerCase().includes(searchTerm) ||
-      (recipe.cuisine_name &&
-        recipe.cuisine_name.toLowerCase().includes(searchTerm))
-  )
-})
 </script>
 
 <template>
@@ -72,6 +34,7 @@ const Searched = computed(() => {
           v-for="item in siteSettings.authLink"
           :key="item.label"
           :to="item.url"
+          class="header__auth-link"
         >
           <li class="header__auth-item">
             <img
@@ -84,8 +47,12 @@ const Searched = computed(() => {
             >{{ item.label }}
           </li>
         </NuxtLink>
-        <MyButton variant="quit" @click="logout">
-          <li><img src="/assets/icones/logout.png" alt="logout" >Logout</li>
+        
+        <MyButton variant="quit" class="header__logout-btn" @click="logout">
+          <li class="header__logout-content">
+            <img src="/assets/icones/logout.png" alt="logout" class="header__logout-icon">
+            Logout
+          </li>
         </MyButton>
       </ul>
     </div>
@@ -105,25 +72,7 @@ const Searched = computed(() => {
         </NuxtLink>
       </div>
 
-      <div class="header__search">
-        <MyInput
-          v-model="search"
-          placeholder="Search some recipes"
-          type="text"
-        />
-
-        <div v-if="Searched.length" class="header__search-list">
-          <div
-            v-for="aRecipe in Searched"
-            :key="aRecipe.recipe_id"
-            class="header__search-item"
-          >
-            <NuxtLink :to="`/recipe/${aRecipe.recipe_id}`">
-              {{ aRecipe.title }}
-            </NuxtLink>
-          </div>
-        </div>
-      </div>
+      <SearchBar />
 
       <section class="header__actions">
         <div class="header__user-menu">
@@ -143,12 +92,13 @@ const Searched = computed(() => {
             >
               <li class="header__dropdown-item">{{ item.label }}</li>
             </NuxtLink>
+            
             <MyButton
-              class="header__auth-logout"
+              class="header__dropdown-logout"
               variant="quit"
               @click="logout"
             >
-              <li>Logout</li>
+              <li class="header__dropdown-text">Logout</li>
             </MyButton>
           </ul>
         </div>
@@ -167,10 +117,6 @@ const Searched = computed(() => {
     align-items: center;
     padding: rem(8) rem(16);
     font-size: rem(12);
-
-    & > ul > a > li {
-      text-decoration: none;
-    }
   }
 
   &__nav-list,
@@ -183,18 +129,25 @@ const Searched = computed(() => {
     padding: 0;
     text-transform: uppercase;
     font-weight: 600;
+  }
+  
+  &__nav-item,
+  &__auth-item {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: rem(8);
+  }
 
-    li {
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: rem(8);
+  &__auth-icon {
+    height: rem(14);
+    width: auto;
+  }
 
-      img {
-        height: rem(14);
-        width: auto;
-      }
-    }
+  &__auth-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
   }
 
   &__nav-link {
@@ -228,63 +181,6 @@ const Searched = computed(() => {
   &__logo {
     height: rem(50);
     width: auto;
-  }
-
-  &__search {
-    position: relative;
-    flex-grow: 1;
-    max-width: rem(600);
-    margin: 0 rem(40);
-    display: flex;
-    flex-direction: column;
-
-    input[type="text"] {
-      width: 100%;
-      padding: rem(10) rem(14);
-      border: 1px solid $color-border;
-      border-radius: $radius-sm;
-      background-color: $color-background;
-      color: $color-text;
-      transition: all 0.2s;
-
-      &:focus {
-        outline: none;
-        border-color: $color-primary;
-        box-shadow: 0 0 0 rem(4) rgba(0, 0, 0, 0.05);
-      }
-    }
-
-    &-list {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      margin-top: rem(4);
-      z-index: 300;
-      background-color: $color-background;
-      border: 1px solid $color-border;
-      border-radius: $radius-sm;
-      box-shadow: $shadow-card;
-      max-height: rem(300);
-      overflow-y: auto;
-    }
-
-    &-item {
-      padding: rem(10) rem(14);
-      cursor: pointer;
-      font-size: rem(14);
-      color: $color-text;
-      border-bottom: 1px solid transparent;
-
-      &:hover {
-        background-color: $color-hover;
-        color: $color-primary;
-      }
-
-      &:last-child {
-        border-bottom: none;
-      }
-    }
   }
 
   &__actions {
@@ -347,15 +243,27 @@ const Searched = computed(() => {
     }
   }
 
-  &__auth-logout {
+  &__logout-content {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: rem(8);
+  }
+
+  &__logout-icon {
+    height: rem(14);
+    width: auto;
+  }
+
+  &__dropdown-logout {
     width: 100%;
     border-radius: 0;
     justify-content: flex-start;
     padding: rem(10) rem(16);
+  }
 
-    li {
-      list-style: none;
-    }
+  &__dropdown-text {
+    list-style: none;
   }
 }
 </style>
