@@ -17,6 +17,14 @@ $btn-text-disabled: #9EA2AE;
 
 $btn-outline-color: $btn-bg-default;
 
+$btn-quit-bg-default: #E53935;
+$btn-quit-bg-hover:   #D32F2F;   
+$btn-quit-bg-focus:   #E53935; 
+$btn-quit-bg-pressed: #C62828; 
+$btn-quit-text-default: $btn-text-default;
+$btn-quit-text-disabled: $btn-text-disabled; 
+$btn-quit-outline-color: $btn-quit-bg-default;
+
 $btn-border-focus: #a5b4fc;
 $btn-focus-shadow: 0 0 0 rem(3) rgba(165, 180, 252, 0.6);
 
@@ -57,3 +65,5 @@ $shadow-card: 0 rem(4) rem(12) rgba(0,0,0,0.1);
 $radius-sm: rem(4);
 
 $color-primary: var(--color-primary);
+
+

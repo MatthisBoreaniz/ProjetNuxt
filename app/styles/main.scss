@@ -152,4 +152,28 @@
       background-color: transparent;
     }
   }
+
+  &.-quit {
+    background-color: $btn-quit-bg-default;
+    color: $btn-quit-text-default;
+
+    &:hover {
+      background-color: $btn-quit-bg-hover;
+    }
+
+    &:focus {
+      box-shadow: $btn-focus-shadow;
+      background-color: $btn-quit-bg-focus;
+    }
+
+    &:active {
+      background-color: $btn-quit-bg-pressed;
+    }
+
+    &:disabled {
+      background-color: $btn-bg-disabled;
+      color: $btn-text-disabled;
+      cursor: not-allowed;
+    }
+  }
 }

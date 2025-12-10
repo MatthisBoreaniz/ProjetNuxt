@@ -18,7 +18,8 @@
 //   tags: ['autodocs'],
 //   argTypes: {
 //     type: { control: 'select', options: ['text', 'password', 'email'] },
-//     label: { control: 'text' }
+//     label: { control: 'text' },
+//     placeholder: { control: 'text' }
 //   }
 // } satisfies Meta<typeof MyInput>
 

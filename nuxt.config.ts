@@ -6,6 +6,22 @@ export default defineNuxtConfig({
   components: [
     { path: '~/components', pathPrefix: false, extensions: ['vue'] }
   ],
+  modules: [
+    '@nuxt/eslint',
+    '@nuxt/image',
+    '@nuxt/test-utils',
+    '@nuxtjs/sanity'
+  ],
+  sanity: {
+    projectId: 'bs26cy7u',
+    dataset: 'production',
+    visualEditing: {
+      token: process.env.NUXT_SANITY_API_TOKEN,
+      studioUrl: process.env.NUXT_SANITY_STUDIO_URL,
+      stega: true
+    }
+  },
+
   typescript: {
     typeCheck: true
   },
@@ -15,6 +31,12 @@ export default defineNuxtConfig({
     }
   },
   vite: {
+    optimizeDeps: {
+      include: [
+        'react-compiler-runtime',
+        'react',
+        'react-dom']
+    },
     css: {
       preprocessorOptions: {
         scss: {
@@ -26,6 +48,5 @@ export default defineNuxtConfig({
         }
       }
     }
-  },
-  modules: ['@nuxt/eslint', '@nuxt/image', '@nuxt/test-utils']
+  }
 })

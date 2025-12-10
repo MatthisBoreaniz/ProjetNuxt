@@ -5,6 +5,7 @@ const model = defineModel<string>(
 defineProps<{
   label?: string
   type: 'text' | 'password' | 'email'
+  placeholder?: string
 }>()
 
 
@@ -13,7 +14,7 @@ defineProps<{
 <template>
   <div class="inputGroup">
     <label v-if="label">{{label}}</label>
-    <input v-model="model" :type="type" >
+    <input v-model="model" :type="type" :placeholder="placeholder" >
   </div>
 </template>
 
