@@ -16,6 +16,7 @@ const logout = () => {
   cookie.value = null
   navigateTo('/login')
 }
+
 </script>
 
 <template>
