@@ -83,74 +83,113 @@ onMounted(() => fetchRecipes())
 
 <template>
   <div class="recipes-list">
-    <div v-if="loading" class="text-sm text-muted">Chargement des recettes...</div>
-    <div v-if="errorMessage" class="text-sm text-red">{{ errorMessage }}</div>
+    <div v-if="loading" class="recipes-list__loading">Chargement des recettes...</div>
+    <div v-if="errorMessage" class="recipes-list__error">{{ errorMessage }}</div>
 
-    <div v-for="recipe in recipes" :key="recipe.recipe_id" class="recipe-item">
-      <div class="recipe-info">
-        <span class="text-md font-semibold">{{ recipe.title }}</span>
-        <span class="text-sm text-muted">{{ recipe.description }}</span>
+    <div
+      v-for="recipe in recipes"
+      :key="recipe.recipe_id"
+      class="recipes-list__item"
+    >
+      <div class="recipes-list__info">
+        <span class="recipes-list__title">{{ recipe.title }}</span>
+        <span class="recipes-list__description">{{ recipe.description }}</span>
       </div>
-      <button class="btn-delete" @click="deleteRecipe(recipe.recipe_id)">Supprimer</button>
+      <button
+        class="recipes-list__delete"
+        @click="deleteRecipe(recipe.recipe_id)"
+      >
+        Supprimer
+      </button>
     </div>
   </div>
 </template>
 
+
 <style lang="scss" scoped>
+
 .recipes-list {
   display: flex;
   flex-direction: column;
   gap: rem(12);
 
-  .recipe-item {
+  &__loading,
+  &__error {
+    font-size: rem(14);
+    text-align: center;
+  }
+
+  &__error {
+    color: #E53935; // rouge pour erreur
+  }
+
+  &__item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid var(--color-text);
     padding: rem(12);
-    border-radius: rem(6);
-    background-color: var(--color-bg);
+    border-radius: $radius-md;
+    background-color: $color-background;
+    border: 1px solid $color-border;
+    box-shadow: $shadow-card;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: $medium-breakpoint) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: rem(8);
+    }
   }
 
-  .recipe-info {
+  &__info {
     display: flex;
     flex-direction: column;
     gap: rem(4);
-
-    .text-md {
-      font-size: rem(16);
-    }
-
-    .text-sm {
-      font-size: rem(14);
-    }
-
-    .text-muted {
-      color: var(--color-text-secondary);
-    }
-
-    .font-semibold {
-      font-weight: 600;
-    }
   }
 
-  .btn-delete {
-    background-color: red;
-    color: white;
-    padding: rem(6) rem(12);
-    border: none;
-    border-radius: rem(4);
-    cursor: pointer;
+  &__title {
+    font-size: rem(16);
+    font-weight: 600;
+    color: $color-text;
+  }
+
+  &__description {
     font-size: rem(14);
-    transition: background 0.2s;
+    color: $color-text; // pas de variable secondaire
+  }
+
+  &__delete {
+    background-color: $btn-quit-bg-default;
+    color: $btn-quit-text-default;
+    border: none;
+    border-radius: $radius-sm;
+    padding: $btn-padding-small;
+    font-size: $btn-font-size-medium;
+    cursor: pointer;
+    transition: background 0.2s ease;
 
     &:hover {
-      background-color: darkred;
+      background-color: $btn-quit-bg-hover;
+    }
+
+    &:active {
+      background-color: $btn-quit-bg-pressed;
+    }
+
+    &:disabled {
+      background-color: $btn-bg-disabled;
+      color: $btn-quit-text-disabled;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: $medium-breakpoint) {
+      align-self: flex-end;
     }
   }
-
-  .text-red {
-    color: red;
-  }
 }
+
 </style>

@@ -8,7 +8,6 @@
 <template>
   <div>
     <MyHeader/>
-    <NuxtLink to="/books">Books</NuxtLink>
     <main class="ly-default">
       <slot />
     </main>

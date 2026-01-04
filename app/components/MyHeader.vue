@@ -118,6 +118,8 @@ const logout = () => {
     align-items: center;
     padding: rem(8) rem(16);
     font-size: rem(12);
+    flex-wrap: wrap;
+    gap: rem(8);
   }
 
   &__nav-list,
@@ -130,8 +132,9 @@ const logout = () => {
     padding: 0;
     text-transform: uppercase;
     font-weight: 600;
+    flex-wrap: wrap;
   }
-  
+
   &__nav-item,
   &__auth-item {
     cursor: pointer;
@@ -145,15 +148,11 @@ const logout = () => {
     width: auto;
   }
 
+  &__nav-link,
   &__auth-link {
     text-decoration: none;
     color: inherit;
     display: flex;
-  }
-
-  &__nav-link {
-    text-decoration: none;
-    color: inherit;
     transition: color 0.2s;
 
     &:hover {
@@ -169,6 +168,8 @@ const logout = () => {
     align-items: center;
     padding: rem(16) rem(32);
     border-bottom: 1px solid $color-border;
+    flex-wrap: wrap;
+    gap: rem(16);
   }
 
   &__logo-link {
@@ -265,6 +266,70 @@ const logout = () => {
 
   &__dropdown-text {
     list-style: none;
+  }
+
+  /* 🔹 Responsive */
+  @media (max-width: 1024px) {
+    &__main {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    &__actions {
+      width: 100%;
+      justify-content: space-between;
+      margin-top: rem(12);
+    }
+
+    &__nav-list,
+    &__auth-list {
+      gap: rem(12);
+    }
+  }
+
+  @media (max-width: 768px) {
+    &__top {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: rem(8);
+    }
+
+    &__nav-list,
+    &__auth-list {
+      flex-direction: column;
+      width: 100%;
+      gap: rem(8);
+    }
+
+    &__nav-item,
+    &__auth-item {
+      width: 100%;
+    }
+
+    &__dropdown {
+      right: rem(0);
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    &__logo {
+      height: rem(40);
+    }
+
+    &__avatar {
+      width: rem(35);
+      height: rem(35);
+    }
+
+    &__dropdown-item {
+      font-size: rem(12);
+      padding: rem(8) rem(12);
+    }
+
+    &__logout-content {
+      font-size: rem(12);
+    }
   }
 }
 </style>
