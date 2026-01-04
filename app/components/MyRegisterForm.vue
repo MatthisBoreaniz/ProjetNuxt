@@ -54,9 +54,9 @@ const postRegister = async () => {
 
 <template>
   <section class="register">
-    <h1>Créer un compte</h1>
+    <h1 class="register__title">Créer un compte</h1>
 
-    <form class="form" @submit.prevent="postRegister">
+    <form class="register__form" @submit.prevent="postRegister">
       <MyInput
         v-model="username"
         label="Nom d'utilisateur"
@@ -78,21 +78,30 @@ const postRegister = async () => {
         required
       />
 
-      <p v-if="errorMessage" class="error">
+      <p
+        v-if="errorMessage"
+        class="register__error"
+      >
         {{ errorMessage }}
       </p>
 
-      <MyButton :disabled="loading">
+      <MyButton
+        class="register__submit"
+        :disabled="loading"
+      >
         {{ loading ? 'Création...' : 'S’inscrire' }}
       </MyButton>
     </form>
 
-    <p class="login-link">
+    <p class="register__login">
       Déjà un compte ?
-      <NuxtLink to="/login">Se connecter</NuxtLink>
+      <NuxtLink class="register__login-link" to="/login">
+        Se connecter
+      </NuxtLink>
     </p>
   </section>
 </template>
+
 
 <style lang="scss" scoped>
 .register {
@@ -103,32 +112,37 @@ const postRegister = async () => {
   justify-content: center;
   gap: rem(24);
 
-  h1 {
+  &__title {
     font-size: rem(24);
   }
-}
 
-.form {
-  border: 1px solid var(--color-text);
-  border-radius: rem(4);
-  display: flex;
-  flex-direction: column;
-  gap: rem(16);
-  width: rem(320);
-  padding: rem(24);
-}
+  &__form {
+    width: rem(320);
+    padding: rem(24);
+    display: flex;
+    flex-direction: column;
+    gap: rem(16);
+    border: 1px solid var(--color-text);
+    border-radius: rem(4);
+  }
 
-.error {
-  color: red;
-  font-size: rem(14);
-}
+  &__error {
+    font-size: rem(14);
+    color: red;
+  }
 
-.login-link {
-  font-size: rem(14);
+  &__submit {
+    margin-top: rem(8);
+  }
 
-  a {
+  &__login {
+    font-size: rem(14);
+  }
+
+  &__login-link {
     margin-left: rem(4);
     text-decoration: underline;
   }
 }
+
 </style>
