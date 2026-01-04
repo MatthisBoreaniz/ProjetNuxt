@@ -27,6 +27,7 @@ const logout = () => {
   <div class="p-dashboard">
     <h1>Dashboard</h1>
     <CreateRecipeForm/>
+    <DeleteRecipes/>
     <button @click="logout">
       Se déconnecter
     </button>
