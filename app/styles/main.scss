@@ -1,5 +1,8 @@
 @use './base.scss' as *;
 
+a {
+  text-decoration: none;
+}
 
 .btn {
   text-decoration: none;
